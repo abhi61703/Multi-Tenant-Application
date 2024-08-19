@@ -23,4 +23,17 @@ public class UserService {
         user.setTenantId(tenantId); // Ensure tenantId is set
         return userRepository.save(user);
     }
+
+    public User createUser(String username) {
+        String tenantId = TenantContext.getCurrentTenant(); // Get the tenant ID
+        User user = new User();
+        user.setUsername(username);
+        user.setTenantId(tenantId); // Ensure tenantId is set
+        return userRepository.save(user);
+    }
+
+    public List<User> getUsersByTenant() {
+        String tenantId = TenantContext.getCurrentTenant(); // Get the tenant ID
+        return userRepository.findByTenantId(tenantId); // Use tenantId to fetch users
+    }
 }
